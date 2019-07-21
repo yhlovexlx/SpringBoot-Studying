@@ -6,3 +6,7 @@
 ## 本章目标
 使用spring-boot-devtools来实现项目热部署，修改java代码，无需手动重启项目，只需刷新页面，即可看到内容的修改。
 
+## 注意事项
+存在配置好了devtools但是失效的问题：idea和eclipse不一样，idea需要手动去开启自动编译功能，具体步骤参考如下：
+[idea手动开启自动编译功能](https://blog.csdn.net/minebk/article/details/78200507 "SpringBoot热部署")
+
