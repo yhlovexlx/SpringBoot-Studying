@@ -1,4 +1,4 @@
-## SpringBoot第二章：使用Devtools实现热部署
+## 第二章：SpringBoot使用Devtools实现热部署
 我们每次修改代码之后，都需要手动去重启项目，这样才能看到改动后的效果，耗时且麻烦。
 使用spring-boot-devtools组件之后，idea可以检测到代码的改动，然后自动编译（需要开启idea的自动编译）并restart项目。
 无需我们手动去重启项目，就可以看到改动后的效果，简单方便。
