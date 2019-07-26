@@ -8,5 +8,5 @@ SpringBoot对Jsp的支持不算太好，目前推荐使用Thymeleaf视图，但�
 ## 注意事项
 1. yml需要配置视图路径
 2. 需要依靠tomcat外部容器
-3. 相关jar包依赖不要缺失
+3. 相关jar包依赖不要缺失,详情见pom.xml
 
