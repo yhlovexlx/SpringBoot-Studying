@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -26,6 +25,7 @@ import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Chapter4Application.class)
+//日志组件
 @Slf4j
 public class Chapter4ApplicationTests {
 
@@ -33,11 +33,19 @@ public class Chapter4ApplicationTests {
     @Autowired
     private UserService userService;
 
+    /**
+     * 执行单元测试方法之前
+     * @throws Exception
+     */
     @Before
     public void before() throws Exception{
         userService.deleteUsers();
     }
 
+    /**
+     * 执行完单元测试方法之后
+     * @throws Exception
+     */
     @After
     public void after() throws Exception{
         log.info("do something after testing... ");
@@ -47,6 +55,9 @@ public class Chapter4ApplicationTests {
     public void contextLoads() {
     }
 
+    /**
+     * 测试插入数据
+     */
     @Test
     public void testInsert(){
         userService.insert("张三","123456",18,"深圳");
@@ -54,6 +65,9 @@ public class Chapter4ApplicationTests {
         Assert.assertEquals(2,userService.listUsernames().size());
     }
 
+    /**
+     * 测试删除数据
+     */
     @Test
     public void testDelete(){
         userService.insert("张三","123456",18,"深圳");
@@ -62,6 +76,9 @@ public class Chapter4ApplicationTests {
         Assert.assertEquals(null,user);
     }
 
+    /**
+     * 测试更新数据
+     */
     @Test
     public void testUpdate(){
         userService.insert("张三","123456",18,"深圳");
@@ -70,6 +87,9 @@ public class Chapter4ApplicationTests {
         Assert.assertEquals("上海",user.getAddress());
     }
 
+    /**
+     * 测试获取单条记录，返回对象
+     */
     @Test
     public void testGet(){
 
@@ -79,6 +99,9 @@ public class Chapter4ApplicationTests {
     }
 
 
+    /**
+     * 测试获取所有记录，返回对象集合
+     */
     @Test
     public void testGetAll(){
 
@@ -87,6 +110,10 @@ public class Chapter4ApplicationTests {
         Assert.assertEquals(1,userList.size());
     }
 
+    /**
+     * 测试获取所有对象，返回Map集合，每一个map对应一条记录
+     * map中的key和value分别对应字段名和值
+     */
     @Test
     public void testListAsMap(){
 
@@ -96,12 +123,27 @@ public class Chapter4ApplicationTests {
         Assert.assertEquals("深圳",list.get(0).get("address"));
     }
 
+    /**
+     * 测试获取单条记录，返回一个map
+     * map中的key和value分别对应字段名和值
+     */
     @Test
     public void testGetAsMap(){
 
         userService.insert("张三","123456",18,"深圳");
         Map<String,Object> map = userService.getUserAsMap("张三");
         Assert.assertEquals("深圳",map.get("address"));
+    }
+
+
+    /**
+     * 测试RowMapper的一个封装基础
+     */
+    @Test
+    public void testGetObject(){
+        userService.insert("张三","123456",18,"深圳");
+        User user = userService.getObject("张三");
+        Assert.assertNotEquals(null,user);
     }
 
 

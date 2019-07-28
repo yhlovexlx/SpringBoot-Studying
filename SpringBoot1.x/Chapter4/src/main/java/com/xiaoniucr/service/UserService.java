@@ -30,5 +30,7 @@ public interface UserService {
 
     Map getUserAsMap(String username);
 
+    User getObject(String username);
+
 
 }

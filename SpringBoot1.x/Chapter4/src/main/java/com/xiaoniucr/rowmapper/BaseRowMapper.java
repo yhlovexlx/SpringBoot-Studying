@@ -5,29 +5,22 @@ import org.springframework.jdbc.core.RowMapper;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
+ * RowMapper的基础封装
  * @author Mr.Yang
  * @create 2019/07/27 17:41
  * @copyright www.xiaoniucr.com
  */
 public class BaseRowMapper<T> implements RowMapper<T> {
 
-    private Class<? extends Object> targetClazz;
-    private Map<String, Field> fieldMap;
+    private Class<?> targetClazz;
 
-    public BaseRowMapper(Class<? extends Object> targetClazz){
+    public BaseRowMapper(Class<?> targetClazz){
         this.targetClazz = targetClazz;
-        fieldMap = new HashMap<>();
-        for (Field field : targetClazz.getDeclaredFields()){
-            fieldMap.put(field.getName(),field);
-        }
     }
 
     @Override
@@ -36,13 +29,11 @@ public class BaseRowMapper<T> implements RowMapper<T> {
         T obj = null;
         try {
             obj = (T) targetClazz.newInstance();
-            ResultSetMetaData metaData = rs.getMetaData();
-            int columnLength = metaData.getColumnCount();
+            Field[] fields = targetClazz.getDeclaredFields();
             String columnName = null;
-            for(int i = 0; i <=  columnLength; i++){
-                columnName = metaData.getColumnName(i);
-                Field field = fieldMap.get(columnName);
+            for(Field field : fields){
                 Class fieldClazz = field.getType();
+                columnName = field.getName();
                 field.setAccessible(true);
                 if (fieldClazz == int.class || fieldClazz == Integer.class) {
                     field.set(obj, rs.getInt(columnName));

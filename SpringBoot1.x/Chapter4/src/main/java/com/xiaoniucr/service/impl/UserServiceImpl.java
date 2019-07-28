@@ -1,6 +1,7 @@
 package com.xiaoniucr.service.impl;
 
 import com.xiaoniucr.entity.User;
+import com.xiaoniucr.rowmapper.BaseRowMapper;
 import com.xiaoniucr.rowmapper.UserRowMapper;
 import com.xiaoniucr.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +95,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map getUserAsMap(String username) {
         return jdbcTemplate.queryForMap("select * from xn_user where username=?",username);
+    }
+
+    @Override
+    public User getObject(String username) {
+        return jdbcTemplate.queryForObject("select * from xn_user where username=?",new BaseRowMapper<User>(User.class),username);
     }
 
 
