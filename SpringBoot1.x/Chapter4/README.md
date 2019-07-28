@@ -2,7 +2,8 @@
 
 ### 本章目标
 1. 使用jdbcTemplate完成对数据库的简单访问
-2. 掌握jdbcTemplate的一些使用方法，查询简单对象，集合，Map等。
+2. 掌握jdbcTemplate的一些方法的使用（query、queryForObject、queryForList），查询简单对象，集合，Map等。
+3. 封装一个基础的RowMapper实现类
 
 ### 注意事项
 1. SpringBoot添加jdbc支持和数据库驱动
